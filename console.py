@@ -236,15 +236,15 @@ class HBNBCommand(cmd.Cmd):
 										new_str = args[1][args[1].find('(')+1:args[1].find(')')]
 										new_list.append(" ".join(new_str.split(", ")))
 										return " ".join(i for i in new_list)
-							
-							def default(self, line):
-								"""retrieve all instances of a class and
-								retrieve the number of instances
-								"""
-								my_list = line.split('.')
-								if len(my_list) >= 2:
-									if my_list[1] == "all()":
-										self.do_all(my_list[0])
+
+								def default(self, line):
+									"""retrieve all instances of a class and
+									retrieve the number of instances
+									"""
+									my_list = line.split('.')
+									if len(my_list) >= 2:
+										if my_list[1] == "all()":
+											self.do_all(my_list[0])
 									elif my_list[1] == "count()":
 										self.count(my_list[0])
 									elif my_list[1][:4] == "show":
@@ -260,8 +260,9 @@ class HBNBCommand(cmd.Cmd):
 												self.do_update(key + ' "{}" "{}"'.format(k, v))
 											else:
 												self.do_update(args)
-											else:
+										else:
 												cmd.Cmd.default(self, line)
 
-		if __name__ == '__main__':
-		HBNBCommand().cmdloop()
+
+if __name__ == '__main__':
+	HBNBCommand().cmdloop()
