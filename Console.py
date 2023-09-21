@@ -72,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
 			except NameError:
 				print("** class doesn't exist **")
 
-			def do_show(self, line):
+		def do_show(self, line):
 			"""Prints the string representation of an instance
 			Exceptions:
 			SyntaxError: when there is no args given
@@ -102,20 +102,20 @@ class HBNBCommand(cmd.Cmd):
 					print("** instance id missing **")
 				except KeyError:
 					print("** no instance found **")
-			def do_destroy(self, line):
-				"""Deletes an instance based on the class name and id
+		def do_destroy(self, line):
+			"""Deletes an instance based on the class name and id
 				Exceptions:
 				SyntaxError: when there is no args given
 				NameError: when there is no object taht has the name
 				IndexError: when there is no id given
 				KeyError: when there is no valid id given
-				"""
-				try:
-					if not line:
-						raise SyntaxError()
-						my_list = line.split(" ")
-						if my_list[0] not in self.__classes:
-							raise NameError()
+			"""
+			try:
+				if not line:
+					raise SyntaxError()
+					my_list = line.split(" ")
+					if my_list[0] not in self.__classes:
+						raise NameError()
 						if len(my_list) < 2:
 							raise IndexError()
 							objects = storage.all()
