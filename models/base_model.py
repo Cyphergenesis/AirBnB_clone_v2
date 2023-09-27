@@ -1,12 +1,15 @@
 #!/usr/bin/python3
 """Defines the BaseModel class."""
-import modelsfrom uuid import uuid4
+import sys
+import models
+from uuid import uuid4
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import String
 Base = declarative_base()
+
 class BaseModel:
 	"""Defines the BaseModel class.
 	Attributes:
@@ -30,13 +33,14 @@ class BaseModel:
 			for key, value in kwargs.items():
 				if key == "created_at" or key == "updated_at":
 					value = datetime.strptime(value,"%Y-%m-%dT%H:%M:%S.%f")
-					if key != "__class__":
-						setattr(self, key, value)
+				if key != "__class__":
+					setattr(self, key, value)
 	def save(self):
 		"""Update updated_at with the current datetime."""
 		self.updated_at = datetime.utcnow()
 		models.storage.new(self)
 		models.storage.save()
+	
 	def to_dict(self):
 		"""Return a dictionary representation of the BaseModel instance.
 		Includes the key/value pair __class__ representing
@@ -51,7 +55,9 @@ class BaseModel:
 
 	def delete(self):
 		"""Delete the current instance from storage."""
-		models.storage.delete(self)def __str__(self):
+		models.storage.delete(self)
+	
+	def __str__(self):
 		"""Return the print/str representation of the BaseModel
 		instance.
 		"""
